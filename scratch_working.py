@@ -3,6 +3,7 @@
 
 import time
 import wiringpi
+import sys
 # use 'GPIO naming'
 wiringpi.wiringPiSetupGpio()
 
@@ -20,10 +21,13 @@ wiringpi.pwmSetRange(2000)
 delay_period = 0.01
 
 while True:
-    for pulse in range(50, 250, 1):
-        print('sending pulse')
-        wiringpi.pwmWrite(18, pulse)
-        time.sleep(delay_period)
-    for pulse in range(250, 50, -1):
-        wiringpi.pwmWrite(18, pulse)
-        time.sleep(delay_period)
+	try:
+		for pulse in range(50, 250, 1):
+			print('sending pulse')
+			wiringpi.pwmWrite(18, pulse)
+			time.sleep(delay_period)
+		for pulse in range(250, 50, -1):
+			wiringpi.pwmWrite(18, pulse)
+			time.sleep(delay_period)
+	except KeyboardInterrupt:
+		sys.exit(0)
