@@ -15,7 +15,7 @@ SHELL ["/bin/bash", "-c"]
 # Tweaks to give Apache/PHP write permissions to the app
 RUN usermod -u 1000 www-data && \
     usermod -G staff www-data && \
-    groupmod -g $((50 + 10000)) $(getent group 50 | cut -d: -f1) && \
+    groupmod -g $(10050 $(getent group $BOOT2DOCKER_GID | cut -d: -f1) && \
     groupmod -g 50 staff
 
 # Install packages
