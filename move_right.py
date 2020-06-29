@@ -23,15 +23,12 @@ The longer the delay period, the more reliable the overall duty cycle of the ser
 '''
 
 delay_period = 0.04
-
-while True:
-	try:
-		for pulse in range(50, 250, 1):
-			print('sending pulse')
-			wiringpi.pwmWrite(18, pulse)
-			time.sleep(delay_period)
-		for pulse in range(250, 50, -1):
-			wiringpi.pwmWrite(18, pulse)
-			time.sleep(delay_period)
-	except KeyboardInterrupt:
-		sys.exit(0)
+file = open("stateful","w")
+counter = 0
+for pulse in range(249, 50, -1):
+    print('sending pulse')
+    counter +=1
+    wiringpi.pwmWrite(18, pulse)
+    time.sleep(delay_period)
+file.write(str(counter))
+file.close()
