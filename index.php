@@ -76,10 +76,10 @@ PHP Version: <?php echo phpversion(); ?><br/>
             right(); 
         } 
         function left() { 
-            shell_exec('sudo pinout > test'); 
+            shell_exec('echo LEFT > test'); 
         } 
         function right() { 
-            shell_exec('touch right'); 
+            shell_exec('echo RIGHT > test'); 
         } 
     ?>
         <form method="post" action="index.php">
