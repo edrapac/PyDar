@@ -66,5 +66,26 @@ PHP Version: <?php echo phpversion(); ?><br/>
             </pre>
         </section>
     </div>
+    <div class='container'>
+
+                <?php
+        if(array_key_exists('left', $_POST)) { 
+            left(); 
+        } 
+        else if(array_key_exists('right', $_POST)) { 
+            right(); 
+        } 
+        function left() { 
+            shell_exec('sudo pinout > test'); 
+        } 
+        function right() { 
+            shell_exec('touch right'); 
+        } 
+    ?>
+        <form method="post" action="index.php">
+            <input type="submit" name="left" class="button" value="Left">
+            <input type="submit" name="right" class="button" value="Right">
+        </form>
+    </div>
 </body>
 </html>
