@@ -16,7 +16,7 @@ SHELL ["/bin/bash", "-c"]
 RUN usermod -u 1000 www-data && \
     usermod -G staff www-data && \
     groupmod -g $((50 + 10000)) $(getent group 50 | cut -d: -f1) && \
-    groupmod -g ${50} staff
+    groupmod -g 50 staff
 
 # Install packages
 ENV DEBIAN_FRONTEND noninteractive
