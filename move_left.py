@@ -21,7 +21,7 @@ wiringpi.pwmSetRange(2000)
 '''
 The longer the delay period, the more reliable the overall duty cycle of the servo seems to be. This is a slower option but a delay peroid of about 0.05 always produces consistent results
 '''
-file=open("stateful","r+")
+#file=open("stateful","r+")
 delay_period = 0.04
 #counter = int(file.read().strip())
 for pulse in range(50, 249, 1):
@@ -30,4 +30,4 @@ for pulse in range(50, 249, 1):
     #counter+=1
     time.sleep(delay_period)
 #file.write(str(counter))
-file.close()
+#file.close()

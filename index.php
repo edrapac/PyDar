@@ -76,11 +76,13 @@ PHP Version: <?php echo phpversion(); ?><br/>
             right(); 
         } 
         function left() { 
-            shell_exec('echo LEFT > test'); 
-        } 
+            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/move_left.py');
+	    echo $output;
+	} 
         function right() { 
-            shell_exec('echo RIGHT > test'); 
-        } 
+            shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/move_right.py'); 
+	    echo "Script ran successfully!";
+	} 
     ?>
         <form method="post" action="index.php">
             <input type="submit" name="left" class="button" value="Left">
