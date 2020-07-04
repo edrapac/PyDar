@@ -4,6 +4,12 @@
 import time
 import wiringpi
 import sys
+import logging
+
+logging.basicConfig(filename="move_right_error.log",format='%(asctime)s %(message)s',filemode='w') 
+logger=logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
 # use 'GPIO naming'
 wiringpi.wiringPiSetupGpio()
 
@@ -23,12 +29,19 @@ The longer the delay period, the more reliable the overall duty cycle of the ser
 '''
 
 delay_period = 0.04
-file = open("stateful","w")
+file = open("stateful","r+")
 counter = 0
-for pulse in range(249, 50, -1):
-    print('sending pulse')
-    counter +=1
-    wiringpi.pwmWrite(18, pulse)
-    time.sleep(delay_period)
-file.write(str(counter))
-file.close()
+status = file.readline()
+if('right' in status):
+    file.close()
+    logger.error("Servo attempted to move past 180 degrees")
+    print("Error: You are attempting to move the servo past 180 degrees. This and repeated attempts to move right will continue to fail")
+    sys.exit(1)
+else:
+    for pulse in range(249, 50, -1):
+        print('sending pulse')
+        counter +=1
+        wiringpi.pwmWrite(18, pulse)
+        time.sleep(delay_period)
+    file.write('pointing right')
+    file.close()

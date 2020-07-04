@@ -80,8 +80,8 @@ PHP Version: <?php echo phpversion(); ?><br/>
 	    echo $output;
 	} 
         function right() { 
-            shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/move_right.py'); 
-	    echo "Script ran successfully!";
+            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/move_right.py'); 
+	    echo $output;
 	} 
     ?>
         <form method="post" action="index.php">
