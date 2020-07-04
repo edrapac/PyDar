@@ -14,8 +14,10 @@ www-data ALL=(ALL) NOPASSWD:/usr/bin/python3
 ```
 
 Ownership issues
-chown www-data:www-data /PyDar
-chown www-data:www-data /var/www/html
+
+`chown www-data:www-data /PyDar`
+
+`chown www-data:www-data /var/www/html`
 
 Remember to copy index.php to /var/www/html
 ## Docker GPIO access
