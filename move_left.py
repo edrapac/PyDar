@@ -4,6 +4,12 @@
 import time
 import wiringpi
 import sys
+import logging
+
+logging.basicConfig(filename="move_left_error.log",format='%(asctime)s %(message)s',filemode='w') 
+logger=logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
 # use 'GPIO naming'
 wiringpi.wiringPiSetupGpio()
 
@@ -21,13 +27,20 @@ wiringpi.pwmSetRange(2000)
 '''
 The longer the delay period, the more reliable the overall duty cycle of the servo seems to be. This is a slower option but a delay peroid of about 0.05 always produces consistent results
 '''
-#file=open("stateful","r+")
+
 delay_period = 0.04
-#counter = int(file.read().strip())
-for pulse in range(50, 249, 1):
-    print('sending pulse')
-    wiringpi.pwmWrite(18, pulse)
-    #counter+=1
-    time.sleep(delay_period)
-#file.write(str(counter))
-#file.close()
+file=open("stateful","r+")
+status = file.readline()
+if('left' in status):
+    file.close()
+    logger.error("Servo attempted to move past 0 degrees in the reverse")
+    print("Error: You are attempting to move the servo past 0 degrees in reverse. This and repeated attempts to move right will continue to fail")
+    sys.exit(1)
+else:
+    for pulse in range(50, 249, 1):
+        print('sending pulse')
+        wiringpi.pwmWrite(18, pulse)
+        time.sleep(delay_period)
+    file.truncate(0)
+    file.write('pointing left')
+    file.close()

@@ -30,7 +30,6 @@ The longer the delay period, the more reliable the overall duty cycle of the ser
 
 delay_period = 0.04
 file = open("stateful","r+")
-counter = 0
 status = file.readline()
 if('right' in status):
     file.close()
@@ -40,8 +39,8 @@ if('right' in status):
 else:
     for pulse in range(249, 50, -1):
         print('sending pulse')
-        counter +=1
         wiringpi.pwmWrite(18, pulse)
         time.sleep(delay_period)
+    file.truncate(0)
     file.write('pointing right')
     file.close()
