@@ -5,6 +5,19 @@ Python powered wifi radar
 Apache `sudo apt-get install apache2`
 PHP `sudo apt-get install php` 
 
+Visudo entry 
+```
+www-data ALL=(ALL) NOPASSWD:/usr/bin/pinout
+www-data ALL=(ALL) NOPASSWD:/home/pi/PyDar/move_left.py
+www-data ALL=(ALL) NOPASSWD:/home/pi/PyDar/move_right.py
+www-data ALL=(ALL) NOPASSWD:/usr/bin/python3
+```
+
+Ownership issues
+chown www-data:www-data /PyDar
+chown www-data:www-data /var/www/html
+
+Remember to copy index.php to /var/www/html
 ## Docker GPIO access
 `$ docker run --privileged -d whatever`
 
