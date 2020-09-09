@@ -28,3 +28,9 @@ Remember to copy index.php to /var/www/html
 * v1. Run on LAMP server on bare metal - DONE
 * v2. Dockerize the app, change base docker image to `raspbian/stretch` use configs from https://github.com/joaquindlz/rpi-docker-lamp/blob/master/Dockerfile
 * v3. Allow distributed containers on different systems to call the necessary functions
+
+
+## Troubleshooting
+
+Sometimes numpy will give you an error that it can't be imported even though you have already installed it through pip. If that happens try running `sudo apt-get install libatlas-base-dev`
+
