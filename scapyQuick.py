@@ -11,6 +11,17 @@ df_queue = queue.Queue()
 
 
 def callback(packet):  # processes sniffed packets and calls the pdframe method
+    '''
+    TODO:
+    Need to implement channel hopping, right now it seems like the sniff function just picks an arbitrary channel 
+    and doesnt deviate, we need to ensure even coverage
+    Essentially the flow seems to be 
+    1. Get device in mon mode
+    2. Sniff and do everything we do in this file
+    3. sudo iw dev wlan1mon set channel [new_channel]
+    4. Repeat
+    This might require that we either use some kind of subproccessing or we call our scapy sniff script from bash or the like
+    '''
     try:
         if packet.haslayer(Dot11):  # check if the packet has an 802.11 layer ie Wifi
             if packet.type == 0 and packet.subtype == 8:  # here we start accessing 802.11 specific fields

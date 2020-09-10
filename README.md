@@ -34,3 +34,6 @@ Remember to copy index.php to /var/www/html
 
 Sometimes numpy will give you an error that it can't be imported even though you have already installed it through pip. If that happens try running `sudo apt-get install libatlas-base-dev`
 
+## Useful information used in Development
+* The [iwconfig](https://sandilands.info/sgordon/capturing-wifi-in-monitor-mode-with-iw) dos
+	1. These provide a very detailed look into how monitor mode and the 2.4 GHz wifi bands work
