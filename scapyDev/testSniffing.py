@@ -3,9 +3,15 @@
 # functionality can be called from a python file with no issues
 from scapy.all import *
 import sys
+import os 
 
 try:
-    sniff(iface='wlp4s0mon',prn=lambda x: x.show())
-except KeyBoardInterrupt:
+    sniff(iface='wlp4s0mon',count=2,prn=lambda x: x.show())
+    test_shell_out = input("Woud you like to also test calling a shell script?")
+    if test_shell_out.upper() == 'Y':
+    	print('trying now')
+    	stream = os.system('./channelHop.sh')
+    	print(stream)
+except KeyboardInterrupt:
     print('Keyboard interrupt detected, exiting now')
     sys.exit(0) #clean exit
