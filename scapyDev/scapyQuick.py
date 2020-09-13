@@ -12,8 +12,15 @@ df_queue = queue.Queue()
 
 def channel_hop():
     while True:
-        stream = os.system('./channelHop.sh')
-
+        try:
+            stream = os.system('./channelHop.sh')
+            time.sleep(2)
+        except KeyboardInterrupt:
+            print('Ctrl+c detected, shutting down')
+            sys.exit(1)
+        except Exception as e:
+            print('Non keyboard interrupt exception detected! Printing now')
+            print(e)
 def callback(packet):  # processes sniffed packets and calls the pdframe method
     '''
     TODO:
@@ -69,7 +76,6 @@ while True:  # TODO make this part of main
         sys.exit(0)  # exit cleaiiin
 '''
 if __name__ == "__main__":
-
     x = threading.Thread(target=printFrame, args=(df_queue,))
     x.daemon = True  # daemonize the thread otherwise it will be dependent on the sniffing
     x.start()
@@ -77,5 +83,6 @@ if __name__ == "__main__":
     y = threading.Thread(target=channel_hop)
     y.daemon = True
     y.start()
+
 
     sniff(iface='wlan1mon', prn=callback)
