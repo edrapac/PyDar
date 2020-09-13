@@ -24,14 +24,12 @@ def channel_hop():
 def callback(packet):  # processes sniffed packets and calls the pdframe method
     '''
     TODO:
-    Need to implement channel hopping, right now it seems like the sniff function just picks an arbitrary channel 
-    and doesnt deviate, we need to ensure even coverage
-    Essentially the flow seems to be 
-    1. Get device in mon mode
-    2. Sniff and do everything we do in this file
-    3. sudo iw dev wlan1mon set channel [new_channel]
-    4. Repeat
-    This might require that we either use some kind of subproccessing or we call our scapy sniff script from bash or the like
+    Printing needs to be better, right now the data frame gives us one SSID and the associated metrics,
+    it should probably be such that we have a global dict we consntantly update with SSIDs and their respective dBm.
+    Dict should do the following:
+    1. Keep track of SSID and last 5(?) dBm measurements
+    2. Overwrite dBm mesurements, probably easiest to do this with a fixed array size or something
+    3. Probably going to need to keep the os.clear functionality 
     '''
     try:
         if packet.haslayer(Dot11):  # check if the packet has an 802.11 layer ie Wifi
