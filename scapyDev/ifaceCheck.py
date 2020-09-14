@@ -17,10 +17,19 @@ print(monitor_iface)
 result = re.findall(iface_reg,monitor_iface)
 for i in range(len(result)):
     print(i,":",result[i],"\n")
-x= input("Please choose one of the following interfaces to put into monitor mode: ")
+print("Please choose one of the following interfaces to put into monitor mode: ")
 
 try:
+    
+    x = int(input())
     print("Attempting to now put %s in monitor mode" % (result[x]))
-except Exception as e:
+    cmd = ('sudo airmon-ng start '+result[x])
+    
+    stream = os.popen(cmd).read().rstrip()
+    print(stream)
+except ValueError:
+    print('Invalid input, please enter a number corresponding to the interface name')
+
+except Exception as e: #generic exception handling *shrug
     print('Exception encountered, printing now')
     print(e)
