@@ -7,8 +7,8 @@ import random
 import os
 import sys
 
-df_queue = queue.Queue()
-
+data_frame = pd.DataFrame(columns=["SSID", "Signal Strength (dBm)"])
+data_frame.set_index("SSID", inplace=True)
 
 def channel_hop():
     while True:
@@ -46,20 +46,16 @@ def callback(packet):  # processes sniffed packets and calls the pdframe method
 
 def printFrame(q):
     while True:
-        df = q.get()
-        print(df.to_string())
+        print(data_frame.to_string())
 
         # unfortunately no better way to do this than to feed clear directly to the OS to clear stdout
         time.sleep(0.5)
         os.system("clear")
 
 
-def pdframe(ssid, dbm):  # constructs panda dataframes and puts them in the queue
-    data_frame = pd.DataFrame(columns=["SSID", "Signal Strength (dBm)"])
-    data_frame.set_index("SSID", inplace=True)
+def pdframe(ssid, dbm):  # Updates the pdframe to contain the newest beacon frame and associated information
     SSID = ssid
     data_frame.loc[SSID] = (dbm)
-    df_queue.put(data_frame)  # update FIFO q
 
 
 print('Starting the Thread')  # test code, comment out later
@@ -74,7 +70,7 @@ while True:  # TODO make this part of main
         sys.exit(0)  # exit cleaiiin
 '''
 if __name__ == "__main__":
-    x = threading.Thread(target=printFrame, args=(df_queue,))
+    x = threading.Thread(target=printFrame, args=(data_frame,))
     x.daemon = True  # daemonize the thread otherwise it will be dependent on the sniffing
     x.start()
     
