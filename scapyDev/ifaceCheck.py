@@ -1,6 +1,12 @@
 import os
 import sys
 import re
+import argparse
+
+
+'''
+Handle initial interface setup
+'''
 
 #define 2 simple regexes to catch linux WLAN interfaces and monitor mode interfaces, respectively
 iface_reg = re.compile("wl\S+")
@@ -27,7 +33,7 @@ for i in range(len(result)):
 
 try:
     
-    x = int(input())
+    x = int(input()) 
     print("Attempting to now put %s in monitor mode" % (result[x]))
     cmd = ('airmon-ng start '+result[x]) #does not have to be run as root so long as the ifaceCheck.py is ran as root instead
     
@@ -42,3 +48,16 @@ except Exception as e: #generic exception handling *shrug
 except KeyboardInterrupt:
 	print("Ctrl+c detected, shutting down")
 	sys.exit(0) #exit clean
+
+'''
+Call the rest of the scripts
+parser = argparse.ArgumentParser()
+
+print("Would you like to begin sniffing now? Type y/n")
+
+x = input()
+
+if x.upper() == "Y":
+
+'''
+
