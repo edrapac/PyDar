@@ -21,7 +21,7 @@ parser.add_argument('--iface',required=True)
 def channel_hop(ifacename):
     while True:
         try:
-            stream = os.system('./channelHop.sh')
+            stream = os.system('./channelHop.sh '+ifacename)
             time.sleep(2)
         except KeyboardInterrupt:
             print('Ctrl+c detected, shutting down')
