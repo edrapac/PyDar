@@ -76,11 +76,11 @@ PHP Version: <?php echo phpversion(); ?><br/>
             right(); 
         } 
         function left() { 
-            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/servo_scripts/move_left.py');
+            $output=shell_exec('/usr/bin/python3 /home/pi/PyDar/servo_scripts/move_left.py');
 	    echo $output;
 	} 
         function right() { 
-            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/servo_scripts/move_right.py'); 
+            $output=shell_exec('/usr/bin/python3 /home/pi/PyDar/servo_scripts/move_right.py'); 
 	    echo $output;
 	} 
     ?>
