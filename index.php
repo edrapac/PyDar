@@ -29,7 +29,7 @@ $osInfo = getOSInformation();
 <html lang=en>
 <head>
     <meta charset=utf-8>
-    <title>Hello World from Docker-LA-P</title>
+    <title>PyDar!</title>
 
     <style>
         @import 'https://fonts.googleapis.com/css?family=Montserrat|Raleway|Source+Code+Pro';
@@ -76,11 +76,11 @@ PHP Version: <?php echo phpversion(); ?><br/>
             right(); 
         } 
         function left() { 
-            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/move_left.py');
+            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/servo_scripts/move_left.py');
 	    echo $output;
 	} 
         function right() { 
-            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/move_right.py'); 
+            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/servo_scripts/move_right.py'); 
 	    echo $output;
 	} 
     ?>
