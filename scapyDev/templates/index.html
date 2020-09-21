@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<h1>jQuery Example</h1>
+<div id=announcementdiv></div>
+<script>
+$.get("test.py", function(data) { 
+    //data contains the response data. update a div to contain the data, or do something else.
+    $("#announcementdiv").html(data);
+});
+</script>
+</p></html>
