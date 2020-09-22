@@ -34,13 +34,13 @@ class Scanner ():
                 print('Non keyboard interrupt exception detected! Printing now')
                 print(e)
     
-    def callback(packet):  # processes sniffed packets and calls the pdframe method
+    def callback(self,packet):  # processes sniffed packets and calls the pdframe method
         try:
             if packet.haslayer(Dot11):  # check if the packet has an 802.11 layer ie Wifi
                 if packet.type == 0 and packet.subtype == 8:  # here we start accessing 802.11 specific fields
                     ssid = str(packet.info, 'UTF8')
                     dbm = str(packet.dBm_AntSignal)
-                    pdframe(ssid, dbm)
+                    self.pdframe(ssid, dbm)
         except Exception as e:
             print(e)
             pass  # bad packet or something, best to just pass it
@@ -55,21 +55,23 @@ class Scanner ():
             os.system("clear")
 
 
-    def pdframe(ssid, dbm):  # Updates the pdframe to contain the newest beacon frame and associated information
+    def pdframe(self,ssid, dbm):  # Updates the pdframe to contain the newest beacon frame and associated information
         SSID = ssid
-        data_frame.loc[SSID] = (dbm)
+        self.data_frame.loc[SSID] = (dbm)
+    def run(self):
+        x = threading.Thread(target=self.printFrame)
+        x.daemon = True  # daemonize the thread otherwise it will be dependent on the sniffing
+        x.start()
+
+        y = threading.Thread(target=self.channel_hop) #call channel hopping on a monitor mode interface as passed by the command
+        y.daemon = True
+        y.start()
+
+        sniff(iface=self.arguments.iface, prn=self.callback) 
 
 
 
-if __name__ == "__main__":
-    newScanner = Scanner()
-    x = threading.Thread(target=newScanner.printFrame)
-    x.daemon = True  # daemonize the thread otherwise it will be dependent on the sniffing
-    x.start()
-    
-    y = threading.Thread(target=newScanner.channel_hop) #call channel hopping on a monitor mode interface as passed by the command
-    y.daemon = True
-    y.start()
+#if __name__ == "__main__":
+newScanner = Scanner()
+newScanner.run()
 
-
-    sniff(iface=newScanner.getIface, prn=newScanner.callback) # main thread of execution begin sniffing as last task
