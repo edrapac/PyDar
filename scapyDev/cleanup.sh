@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -eou pipefail
-readarray -t array <<< $(iw dev | grep -E -o "wl[a-z]+[0-9]mon")
+readarray -t array <<< $(iw dev | grep -E -o "wl[0-9A-Za-z]+mon")
 for i in "${array[@]}"
-do airmon-ng stop $i
+do echo "$i" && airmon-ng stop "$i"
 done
