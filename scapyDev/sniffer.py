@@ -41,7 +41,10 @@ class Scanner ():
                 if packet.type == 0 and packet.subtype == 8:  # here we start accessing 802.11 specific fields
                     ssid = str(packet.info, 'UTF8')
                     dbm = str(packet.dBm_AntSignal)
-                    self.pdframe(ssid, dbm)
+                    # self.pdframe(ssid, dbm)
+                    SSID = ssid
+                    self.data_frame.loc[SSID] = (dbm)
+                    return self.data_frame.to_string()
         except Exception as e:
             print(e)
             pass  # bad packet or something, best to just pass it
@@ -60,9 +63,9 @@ class Scanner ():
     def run(self):
         # probably ok to start this thread from within the Scanner class instance as opposed to the app file... I think
         
-        y = threading.Thread(target=self.channel_hop) #call channel hopping on a monitor mode interface as passed by the command
-        y.daemon = True
-        y.start()
+        #y = threading.Thread(target=self.channel_hop) #call channel hopping on a monitor mode interface as passed by the command
+        #y.daemon = True
+        #y.start()
 
         sniff(iface=self.iface, prn=self.callback) 
 
