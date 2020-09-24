@@ -6,26 +6,27 @@ import time
 import random
 import os
 import sys
-import argparse 
-
+import re
 '''
 Define some globals
 '''
 class Scanner ():
     def __init__(self):
+        iface_reg = re.compile("wl\w+mon")
+        stream = os.popen("iw dev").read()
         self.data_frame = pd.DataFrame(columns=["SSID", "Signal Strength (dBm)"])
         
         self.data_frame.set_index("SSID", inplace=True)
-
-
-        self.parser = argparse.ArgumentParser()
-        self.parser.add_argument('--iface',required=True)
-        self.arguments = self.parser.parse_args()
+        if re.search(iface_reg,stream):
+            self.iface = re.findall(iface_reg,stream)[0]
+        else:
+            print("No Monitor Mode interfaces detected! Exiting!")
+            sys.exit(1)
 
     def channel_hop(self):
         while True:
             try:
-                stream = os.system('./channelHop.sh '+self.arguments.iface)
+                stream = os.system('./channelHop.sh '+self.iface)
                 time.sleep(2)
             except KeyboardInterrupt:
                 print('Ctrl+c detected, shutting down')
@@ -45,21 +46,10 @@ class Scanner ():
             print(e)
             pass  # bad packet or something, best to just pass it
     def getIface(self):
-        return self.arguments.iface
-
-    '''
-    Probably dont need this method at all for the web server
-
-    def printFrame(self):
-        while True:
-            print(self.data_frame.to_string())
-            # unfortunately no better way to do this than to feed clear directly to the OS to clear stdout
-            time.sleep(0.5)
-            os.system("clear")
-    '''
+        return self.iface
 
     # instead of printFrame we call this 
-    def getDf(self):
+    def getDataFrame(self):
         return self.data_frame.to_string() # may need to remove the tostring method call
 
 
@@ -68,25 +58,17 @@ class Scanner ():
         self.data_frame.loc[SSID] = (dbm)
     
     def run(self):
-        '''
-        probably can tear this out as well because this was for async printing
-
-        x = threading.Thread(target=self.printFrame)
-        x.daemon = True  # daemonize the thread otherwise it will be dependent on the sniffing
-        x.start()
-        '''
-
         # probably ok to start this thread from within the Scanner class instance as opposed to the app file... I think
         
         y = threading.Thread(target=self.channel_hop) #call channel hopping on a monitor mode interface as passed by the command
         y.daemon = True
         y.start()
 
-        sniff(iface=self.arguments.iface, prn=self.callback) 
+        sniff(iface=self.iface, prn=self.callback) 
 
 
-
+'''
 #if __name__ == "__main__":
 newScanner = Scanner()
 newScanner.run()
-
+'''

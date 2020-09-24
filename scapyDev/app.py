@@ -17,19 +17,22 @@ socketio = SocketIO(app, async_mode=None, logger=True, engineio_logger=True)
 thread = Thread()
 thread_stop_event = Event() # used to stop a thread mid execution if needed
 
-def randomNumberGenerator(): # we eventually wanna tear this out and use the Scanner methods
+def createScanner(): # we eventually wanna tear this out and use the Scanner methods
     """
     Generate a random number every 1 second and emit to a socketio instance (broadcast)
     Ideally to be run in a separate thread?
     """
     #infinite loop of magical random numbers
-    print("Making random numbers")
-    newtest = test()
-    while not thread_stop_event.isSet(): # if the thread stop command hasnt been issued
-        number = test.test()
-        
-        socketio.emit('newnumber', {'number': number}, namespace='/test') # emit the newnumber event to the /test endpoiint
-        socketio.sleep(5)
+    print("Constructing Scanner")
+    
+    newScanner = Scanner()
+    newScanner.run()
+
+    while not thread_stop_event.isSet():
+        newFrame = Scanner.getDataFrame()
+        print(newFrame)
+        socketio.emit('newdataframe', {'frame': newFrame}, namespace='/test') # emit the newnumber event to the /test endpoiint
+        socketio.sleep(3)
 
 
 @app.route('/')
@@ -46,7 +49,7 @@ def test_connect():
     #Start the random number generator thread only if the thread has not been started before.
     if not thread.isAlive():
         print("Starting Thread") # TODO remove prints as stdout isnt needed 
-        thread = socketio.start_background_task(randomNumberGenerator) 
+        thread = socketio.start_background_task(createScanner) 
 
 @socketio.on('disconnect', namespace='/test') #upon disconnect to the /test endpoint
 def test_disconnect():
