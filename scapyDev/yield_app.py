@@ -51,7 +51,7 @@ class Scanner ():
                     # self.pdframe(ssid, dbm)
                     SSID = ssid
                     self.data_frame.loc[SSID] = (dbm)
-                    yield self.data_frame.to_string()
+                    return "foo"
         except Exception as e:
             print(e)
             pass  # bad packet or something, best to just pass it

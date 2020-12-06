@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="static/js/socket.io.min.js"></script>
+    <script src="static/application.js"></script> <!-- Here we load in the JS-->
+
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <div class="jumbotron">
+    <h1>Asynchronous Flask Communication</h1>
+    <p>Data Frame as captured by the PyDar server will (hopefully) appear below.</p>
+    <p>Details <a href='https://www.shanelynn.ie/asynchronous-updates-to-a-webpage-with-flask-and-socket-io/' target='_blank'>here.</a></p>
+  </div>
+</div>
+    
+</div>
+
+<div class="container" id="content">
+    <div class="row">
+        <p>Asynchronous page updates will appear here:</p>
+        <h3>Frame list:</h3>
+        <div id="log">
+        </div> <!-- /#log -->
+    </div>
+</div>
+
+
+</body>
+</html>
+
+<!-- Index.html doesn't really handle much logic
+	it just is a template that provides HTML skeleton, glues together aplication.js and the more back end app.py -->
+	
