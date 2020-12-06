@@ -51,7 +51,7 @@ class Scanner ():
                     # self.pdframe(ssid, dbm)
                     SSID = ssid
                     self.data_frame.loc[SSID] = (dbm)
-                    return self.data_frame.to_string()
+                    yield self.data_frame.to_string()
         except Exception as e:
             print(e)
             pass  # bad packet or something, best to just pass it
@@ -102,21 +102,12 @@ def index():
     #return render_template('index.html')
     
     if request.headers.get('accept') == 'text/event-stream':
-        def script():
-            #a lot of code goes here
-            yield "data: Part A completed.\n\n"
+        thread = newScanner.run()
 
-            #more code
-            time.sleep(1)
-            yield "data: Part B completed.\n\n"
-
-            #more code
-            time.sleep(1)
-            yield "data: Part C completed.\n\n"
-
-        return Response(script(), content_type='text/event-stream')
+        return Response(thread, content_type='text/event-stream')
     return redirect(url_for('static', filename='debug_index.html'))
 
+'''
 @socketio.on('connect', namespace='/test') # upon a connection to the test endpoint, start a bcakground thread
 def test_connect():
     # need visibility of the global thread object
@@ -132,7 +123,7 @@ def test_connect():
 @socketio.on('disconnect', namespace='/test') #upon disconnect to the /test endpoint
 def test_disconnect():
     print('Client disconnected')
-
+'''
 
 if __name__ == '__main__':
     socketio.run(app,host='0.0.0.0')
