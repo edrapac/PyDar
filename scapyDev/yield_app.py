@@ -1,5 +1,5 @@
 from flask_socketio import SocketIO, emit
-from flask import Flask, render_template, url_for, copy_current_request_context
+from flask import Flask, render_template, request, redirect,Response,url_for, copy_current_request_context
 from threading import Thread, Event
 from scapy.all import *
 import pandas as pd
@@ -100,17 +100,18 @@ def createScanner(): # we eventually wanna tear this out and use the Scanner met
 def index():
     #only by sending this page first will the client be connected to the socketio instance
     #return render_template('index.html')
+    
     if request.headers.get('accept') == 'text/event-stream':
         def script():
             #a lot of code goes here
             yield "data: Part A completed.\n\n"
 
             #more code
-            sleep(1)
+            time.sleep(1)
             yield "data: Part B completed.\n\n"
 
             #more code
-            sleep(1)
+            time.sleep(1)
             yield "data: Part C completed.\n\n"
 
         return Response(script(), content_type='text/event-stream')
