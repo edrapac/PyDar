@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Messages</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+    if (!!window.EventSource) {
+        var source = new EventSource('/');
+        source.onmessage = function(e) {
+            var m = $("#messages");
+            if (m.text() == 'nothing received yet')
+                m.html("<div>" + e.data + "</div>");
+            else
+                m.append("<div>" + e.data + "</div>");
+        }
+    }
+    </script>
+  </head>
+  <body>
+    <div id="messages">nothing received yet</div>
+  </body>
+</html>
