@@ -1,5 +1,5 @@
 from flask_socketio import SocketIO, emit
-from flask import Flask, render_template, request, redirect,Response,url_for, copy_current_request_context
+from flask import Flask, render_template, request, redirect,jsonify,make_response, Response,url_for, copy_current_request_context
 from threading import Thread, Event
 from scapy.all import *
 import pandas as pd
@@ -51,7 +51,7 @@ class Scanner ():
                     # self.pdframe(ssid, dbm)
                     SSID = ssid
                     self.data_frame.loc[SSID] = (dbm)
-                    return "foo"
+                    return make_response(jsonify(self.data_frame.to_string()), 200)
         except Exception as e:
             print(e)
             pass  # bad packet or something, best to just pass it
@@ -104,7 +104,7 @@ def index():
     if request.headers.get('accept') == 'text/event-stream':
         thread = newScanner.run()
 
-        return Response(thread, content_type='text/event-stream')
+        #return Response(thread, content_type='text/event-stream')
     return redirect(url_for('static', filename='debug_index.html'))
 
 '''
