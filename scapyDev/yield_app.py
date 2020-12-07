@@ -51,7 +51,7 @@ class Scanner ():
                     # self.pdframe(ssid, dbm)
                     SSID = ssid
                     self.data_frame.loc[SSID] = (dbm)
-                    return make_response(jsonify(self.data_frame.to_string()), 200)
+                    return self.data_frame.to_string()
         except Exception as e:
             print(e)
             pass  # bad packet or something, best to just pass it
@@ -105,7 +105,7 @@ def index():
         thread = newScanner.run()
 
         #return Response(thread, content_type='text/event-stream')
-    return redirect(url_for('static', filename='debug_index.html'))
+    return render_template('debug.html',output=thread)
 
 '''
 @socketio.on('connect', namespace='/test') # upon a connection to the test endpoint, start a bcakground thread
