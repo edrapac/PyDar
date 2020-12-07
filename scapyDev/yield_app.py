@@ -15,6 +15,7 @@ app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 app.config['DEBUG'] = True
 
+global_packet = 'default_global Value'
 
 socketio = SocketIO(app, async_mode=None, logger=True, engineio_logger=True)
 class Scanner ():
@@ -51,7 +52,7 @@ class Scanner ():
                     # self.pdframe(ssid, dbm)
                     SSID = ssid
                     self.data_frame.loc[SSID] = (dbm)
-                    return self.data_frame.to_string()
+                    global_packet=self.data_frame.to_string()
         except Exception as e:
             print(e)
             pass  # bad packet or something, best to just pass it
@@ -74,7 +75,7 @@ class Scanner ():
         #y.daemon = True
         #y.start()
 
-        sniff(iface=self.iface, prn=self.callback)
+        sniff(iface=self.iface, prn=self.callback,count=10)
 #random number Generator Thread
 thread = Thread()
 thread_stop_event = Event() # used to stop a thread mid execution if needed
@@ -101,11 +102,12 @@ def index():
     #only by sending this page first will the client be connected to the socketio instance
     #return render_template('index.html')
     
-    if request.headers.get('accept') == 'text/event-stream':
-        thread = newScanner.run()
-
+    #if request.headers.get('accept') == 'text/event-stream':
+    thread = newScanner.run()
+    #print("returning thread value",thread)
         #return Response(thread, content_type='text/event-stream')
-    return render_template('debug.html',output=thread)
+    return render_template('debug.html',output=global_packet)
+
 
 '''
 @socketio.on('connect', namespace='/test') # upon a connection to the test endpoint, start a bcakground thread
