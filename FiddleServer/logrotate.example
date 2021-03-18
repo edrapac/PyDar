@@ -1,0 +1,11 @@
+/var/log/httpd/access.log {
+           rotate 5
+           size 100k
+           compress
+           missingok
+           notifempty
+           sharedscripts
+           postrotate
+               script to run at end of logrotate
+           endscript
+       }

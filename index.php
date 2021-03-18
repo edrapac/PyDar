@@ -1,5 +1,6 @@
 <?php
 
+// Filler HTML and function to return the current web server's basic information. Better than just showing a blank screen essentially
 function getOSInformation()
  {
      if (false == function_exists("shell_exec") || false == is_readable("/etc/os-release")) {
@@ -25,46 +26,29 @@ function getOSInformation()
  }
 $osInfo = getOSInformation();
 ?>
+
 <!doctype html>
 <html lang=en>
 <head>
     <meta charset=utf-8>
-    <title>Hello World from Docker-LA-P</title>
-
-    <style>
-        @import 'https://fonts.googleapis.com/css?family=Montserrat|Raleway|Source+Code+Pro';
-
-        body { font-family: 'Raleway', sans-serif; }
-        h2 { font-family: 'Montserrat', sans-serif; }
-        pre {
-            font-family: 'Source Code Pro', monospace;
-
-            padding: 16px;
-            overflow: auto;
-            font-size: 85%;
-            line-height: 1.45;
-            background-color: #f7f7f7;
-            border-radius: 3px;
-
-            word-wrap: normal;
-        }
-
-        .container {
-            max-width: 1024px;
-            width: 100%;
-            margin: 0 auto;
-        }
-    </style>
+    <title>PyDar Web Server</title> <!-- Any less python and we really ought to change this title lol -->
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="checker.js"></script>
     <div class="container">
         <section>
             <pre>
 OS: <?php echo $osInfo['pretty_name']; ?><br/>
-Apache: <?php echo apache_get_version(); ?><br/>
-PHP Version: <?php echo phpversion(); ?><br/>
+<!-- Apache: <?//php echo apache_get_version(); ?><br/>
+PHP Version: <?//php echo phpversion(); ?><br/> Disabled for testing, re-enable these fields later-->
             </pre>
         </section>
+    </div>
+    <div class="container">
+      <textarea id="target" cols="122" rows="20">Loading...</textarea>
     </div>
     <div class='container'>
 
@@ -80,7 +64,7 @@ PHP Version: <?php echo phpversion(); ?><br/>
 	    echo $output;
 	} 
         function right() { 
-            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/move_right.py'); 
+            $output=shell_exec('airport -s > log.txt'); //changed for testing using MacOS, make sure to re enable the pyDar scripts in master
 	    echo $output;
 	} 
     ?>
