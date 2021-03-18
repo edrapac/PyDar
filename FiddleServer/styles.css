@@ -1,0 +1,7 @@
+body {
+    font-family: monospace;
+}
+#target {
+    border: 1px solid gray;
+    min-height: 20em;
+}
