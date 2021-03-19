@@ -53,13 +53,13 @@ PHP Version: <?php //echo phpversion(); ?><br/> -->
     <div class='container'>
 
                 <?php
-        if(array_key_exists('left', $_POST)) { 
+        if(isset($_POST['left'])) { 
             left(); 
         } 
-        else if(array_key_exists('right', $_POST)) { 
+        else if(isset(($_POST['right']))) { 
             right(); 
         } 
-        else if(array_key_exists('sniff', $_POST)) { 
+        else if(isset($_POST['sniff'])) { 
             sniff(); 
         }
         function left() { 
