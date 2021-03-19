@@ -42,8 +42,8 @@ $osInfo = getOSInformation();
         <section>
             <pre>
 OS: <?php echo $osInfo['pretty_name']; ?><br/>
-<!-- Apache: <?//php echo apache_get_version(); ?><br/>
-PHP Version: <?//php echo phpversion(); ?><br/> Disabled for testing, re-enable these fields later-->
+<!--Apache: <?php //echo apache_get_version(); ?><br/>
+PHP Version: <?php //echo phpversion(); ?><br/> -->
             </pre>
         </section>
     </div>
@@ -59,18 +59,27 @@ PHP Version: <?//php echo phpversion(); ?><br/> Disabled for testing, re-enable 
         else if(array_key_exists('right', $_POST)) { 
             right(); 
         } 
+        else if(array_key_exists('sniff', $_POST)) { 
+            sniff(); 
+        }
         function left() { 
             $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/move_left.py');
 	    echo $output;
 	} 
         function right() { 
-            $output=shell_exec('airport -s > log.txt'); //changed for testing using MacOS, make sure to re enable the pyDar scripts in master
+            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/move_right.py');
 	    echo $output;
-	} 
+	}
+        function sniff() {
+            $output=shell_exec('sudo airodump-ng wlan1mon >> log.txt');
+        echo $output;
+
+    }
     ?>
         <form method="post" action="index.php">
             <input type="submit" name="left" class="button" value="Left">
             <input type="submit" name="right" class="button" value="Right">
+            <input type="submit" name="sniff" class="button" value="Scan For Available Networks">
         </form>
     </div>
 </body>
