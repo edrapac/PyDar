@@ -94,6 +94,8 @@ def createScanner(): # we eventually wanna tear this out and use the Scanner met
         
         socketio.emit('newdataframe', {'frame': "hello"}, namespace='/test') # emit the newnumber event to the /test endpoiint
         socketio.sleep(2)
+    while true:
+        print('eeeeeeee')
 
 
 @app.route('/')
@@ -111,6 +113,7 @@ def test_connect():
     if not thread.isAlive():
         print("Starting Thread") # TODO remove prints as stdout isnt needed 
         thread = socketio.start_background_task(createScanner)
+        print('starting thread 2')
         thread2 = socketio.start_background_task(newScanner.run()) 
 
 @socketio.on('disconnect', namespace='/test') #upon disconnect to the /test endpoint

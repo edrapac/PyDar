@@ -44,7 +44,11 @@ class Scanner ():
                     # self.pdframe(ssid, dbm)
                     SSID = ssid
                     self.data_frame.loc[SSID] = (dbm)
-                    return self.data_frame.to_string()
+                    current_frame = self.data_frame.to_string()
+                    #return self.data_frame.to_string()
+                    with open("log.txt","w") as file:
+                        file.write(current_frame)
+                        file.write('\n')
         except Exception as e:
             print(e)
             pass  # bad packet or something, best to just pass it
@@ -52,8 +56,8 @@ class Scanner ():
         return self.iface
 
     # instead of printFrame we call this 
-    def getDataFrame(self):
-        return self.data_frame.to_string() # may need to remove the tostring method call
+    #def getDataFrame(self):
+        #return self.data_frame.to_string() # may need to remove the tostring method call
 
 
     def pdframe(self,ssid, dbm):  # Updates the pdframe to contain the newest beacon frame and associated information
@@ -63,15 +67,15 @@ class Scanner ():
     def run(self):
         # probably ok to start this thread from within the Scanner class instance as opposed to the app file... I think
         
-        #y = threading.Thread(target=self.channel_hop) #call channel hopping on a monitor mode interface as passed by the command
-        #y.daemon = True
-        #y.start()
+        y = threading.Thread(target=self.channel_hop) #call channel hopping on a monitor mode interface as passed by the command
+        y.daemon = True
+        y.start()
 
         sniff(iface=self.iface, prn=self.callback) 
 
 
-'''
-#if __name__ == "__main__":
-newScanner = Scanner()
-newScanner.run()
-'''
+
+if __name__ == "__main__":
+    newScanner = Scanner()
+    newScanner.run()
+
