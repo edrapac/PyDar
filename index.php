@@ -42,8 +42,6 @@ $osInfo = getOSInformation();
         <section>
             <pre>
 OS: <?php echo $osInfo['pretty_name']; ?><br/>
-<!--Apache: <?php //echo apache_get_version(); ?><br/>
-PHP Version: <?php //echo phpversion(); ?><br/> -->
             </pre>
         </section>
     </div>
@@ -71,8 +69,7 @@ PHP Version: <?php //echo phpversion(); ?><br/> -->
 	    echo $output;
 	}
         function sniff() {
-            $output=shell_exec('sudo airodump-ng wlan1mon > file.txt 2>&1');
-        echo $output;
+            $output=shell_exec('sudo /usr/bin/python3 ./sniffer.py');
 
     }
     ?>
