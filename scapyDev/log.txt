@@ -1,0 +1,12 @@
+                    Signal Strength (dBm)
+SSID                                     
+EHome                                 -91
+MySpectrumWiFice-2G                   -87
+NETGEAR40                             -82
+Konig_WLAN2GHz_EXT                    -83
+Konig_WLAN2GHz                        -51
+Woody                                 -74
+Woody_EXT                             -87
+                                      -94
+NETGEAR24                             -94
+NETGEAR24_Guest                       -94
