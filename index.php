@@ -42,8 +42,6 @@ $osInfo = getOSInformation();
         <section>
             <pre>
 OS: <?php echo $osInfo['pretty_name']; ?><br/>
-Apache: <?php echo apache_get_version(); ?><br/>
-PHP Version: <?php echo phpversion(); ?><br/>
             </pre>
         </section>
     </div>

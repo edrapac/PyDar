@@ -7,6 +7,8 @@ iface=$1 # the interface being passed as an arg to this script from the main sca
 
 channel=$(($RANDOM % 13+1))
 #echo "Channel is now being set to: $channel"
-iw dev "$1" set channel "$channel"
+#iw dev "$1" set channel "$channel"
+iwconfig "$1" channel "$channel"
 current_frequency=$(iwconfig "$1" | grep -o -E Frequency:[0-9].[0-9]+[[:space:]]GHz)
 #echo "Current interface operating frequency set to $current_frequency"	
+#sleep 2

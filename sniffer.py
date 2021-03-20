@@ -26,7 +26,7 @@ class Scanner ():
     def channel_hop(self):
         while True:
             try:
-                stream = os.system('./channelHop.sh '+self.iface)
+                stream = os.system('sudo ./channelHop.sh '+self.iface)
                 time.sleep(2)
             except KeyboardInterrupt:
                 print('Ctrl+c detected, shutting down')
@@ -72,7 +72,7 @@ class Scanner ():
         y.daemon = True
         y.start()
 
-        sniff(iface=self.iface, prn=self.callback, count=40) 
+        sniff(iface=self.iface, prn=self.callback, count=100) 
 
 
 
