@@ -71,8 +71,8 @@ PHP Version: <?php //echo phpversion(); ?><br/> -->
 	    echo $output;
 	}
         function sniff() {
-            $output=shell_exec('sudo airodump-ng wlan1mon > file.txt 2>&1');
-        echo $output;
+            $output=shell_exec('sudo ./sleeper.sh');
+        //echo $output;
 
     }
     ?>
