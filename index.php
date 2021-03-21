@@ -31,7 +31,7 @@ $osInfo = getOSInformation();
 <html lang=en>
 <head>
     <meta charset=utf-8>
-    <title>PyDar Web Server</title> <!-- Any less python and we really ought to change this title lol -->
+    <title>PyDar Web Server</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -41,7 +41,10 @@ $osInfo = getOSInformation();
     <div class="container">
         <section>
             <pre>
-OS: <?php echo $osInfo['pretty_name']; ?><br/>
+<br>OS: <?php echo $osInfo['pretty_name']; ?></br>
+<br>Welcome to PyDar! Usage for the buttons is below</br>
+<br>Left/Right: Issue the "swivel left/right" commands respectively</br>
+<br>Scan: Scans for available wifi networks, please note that this can take between 30s - 2 minutes to complete, be patient!</br>
             </pre>
         </section>
     </div>
