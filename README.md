@@ -38,7 +38,7 @@ Browse to http://localhost:80/ and begin interacting with the server.
 
 <b>Using ad-hoc</b>
 
-This is the quickest method to get the server up and running, once you have fulfilled all the above requirements, cd into this directory and from here run `php -S localhost:9000` 
+This is the quickest method to get the server up and running, once you have fulfilled all the above requirements, cd into this directory and from here run `sudo php -S localhost:9000` 
 
 Browse to http://localhost:9000 and begin interacting with the server.
 

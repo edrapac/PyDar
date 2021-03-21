@@ -32,11 +32,11 @@ $osInfo = getOSInformation();
 <head>
     <meta charset=utf-8>
     <title>PyDar Web Server</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="jquery-3.6.0.js"></script>
     <script src="checker.js"></script>
     <div class="container">
         <section>
