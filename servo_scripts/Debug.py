@@ -28,7 +28,7 @@ def print_commands():
 
 # Connect to USB serial port at 9600 baud
 try:
-   usb = serial.Serial(USB_PORT, 9600, timeout=2)
+   usb = serial.Serial(USB_PORT, 9600, timeout=10)
 except:
    print("ERROR - Could not open USB serial port.  Please check your port name and permissions.")
    print("Exiting program.")
