@@ -26,6 +26,23 @@ Ownership issues - These ensure that the service account can access the relevant
 
 `chown www-data:www-data /var/www/html`
 
+### Arduino Setup 
+Should only need to be ran once on the RaspberryPi that will be used to control the Arduino 
+
+```
+
+ curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+ echo 'export PATH=$PATH:/home/pi/bin' >> ~/.bashrc
+ source ~/.bashrc 
+ arduino-cli config init
+ arduino-cli core update-index
+ arduino-cli core install arduino:avr:uno
+ arduino-cli lib install Servo
+ arduino-cli compile --fqbn arduino:avr:uno leftright.ino
+ sudo usermod -aG dialout pi
+ sudo usermod -aG dialout www-data
+
+ ```
 
 ### Running the tool
 The tool can currently be ran in one of two ways, either using the apache web server, or creating an ad-hoc server with php itself. Both examples will be shown below.
