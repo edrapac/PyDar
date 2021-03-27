@@ -32,13 +32,12 @@ except:
 
 # Send commands to Arduino
 if sys.argv[1] == "r":
-   right()
+   right(usb)
 elif sys.argv[1] == "l":
-   left()
+   left(usb)
 elif sys.argv[1] == "s":
-   stop()
+   stop(usb)
 elif sys.argv[1] == "x":
-   exit_run()
+   exit_run(usb)
 else:  # unknown command
    print("Unknown command '" + command + "'.")
-   print_commands()
