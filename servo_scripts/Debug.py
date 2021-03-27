@@ -41,7 +41,7 @@ while True:
    command = input("Enter command: ")
    
    if command == "r":  # Rotate Clockwise
-      usb.write(b'led_on')  # send command to Arduino
+      usb.write(b'r')  # send command to Arduino
       print("Rotating Clockwise")
    
    elif command == "l":  # Rotate Counterclockwise
