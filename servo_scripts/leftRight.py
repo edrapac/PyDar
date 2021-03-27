@@ -32,12 +32,16 @@ except:
 
 # Send commands to Arduino
 if sys.argv[1] == "r":
-   right(usb)
+   for i in range(1000): # a bit archaic but we need a way of writing to the serial port that isnt a While true loop
+      right(usb)
 elif sys.argv[1] == "l":
-   left(usb)
+   for i in range(1000):
+      left(usb)
 elif sys.argv[1] == "s":
-   stop(usb)
+   for i in range(1000):
+      stop(usb)
 elif sys.argv[1] == "x":
-   exit_run(usb)
+   for i in range(1000):
+      exit_run(usb)
 else:  # unknown command
    print("Unknown command '" + command + "'.")
