@@ -34,12 +34,15 @@ except:
 if sys.argv[1] == "r":
    for i in range(1000): # a bit archaic but we need a way of writing to the serial port that isnt a While true loop
       right(usb)
+   print('Currently Rotating Clockwise')
 elif sys.argv[1] == "l":
    for i in range(1000):
       left(usb)
+   print('Currently Rotating Counterclockwise')
 elif sys.argv[1] == "s":
    for i in range(1000):
       stop(usb)
+   print('Rotation Stopped')
 elif sys.argv[1] == "x":
    for i in range(1000):
       exit_run(usb)

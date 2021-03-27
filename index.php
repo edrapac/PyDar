@@ -59,26 +59,36 @@ $osInfo = getOSInformation();
         } 
         else if(isset(($_POST['right']))) { 
             right(); 
+        }
+        else if(isset(($_POST['stop']))) { 
+            stop(); 
         } 
         else if(isset($_POST['sniff'])) { 
             sniff(); 
         }
+
+        // functions for controlling rotation
         function left() { 
-            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/move_left.py');
-	    echo $output;
+            $output=shell_exec('/usr/bin/python3 /home/pi/PyDar/servo_scripts/leftRight.py l');
+	   echo $output;
 	} 
         function right() { 
-            $output=shell_exec('sudo /usr/bin/python3 /home/pi/PyDar/move_right.py');
+            $output=shell_exec('/usr/bin/python3 /home/pi/PyDar/servo_scripts/leftRight.py r');
 	    echo $output;
 	}
+        function stop() { 
+            $output=shell_exec('/usr/bin/python3 /home/pi/PyDar/servo_scripts/leftRight.py s');
+      echo $output;
+  }
         function sniff() {
             $output=shell_exec('sudo /usr/bin/python3 ./sniffer.py');
 
     }
     ?>
         <form method="post" action="index.php">
-            <input type="submit" name="left" class="button" value="Left">
-            <input type="submit" name="right" class="button" value="Right">
+            <input type="submit" name="left" class="button" value="Rotate Left">
+            <input type="submit" name="right" class="button" value="Rotate Right">
+            <input type="submit" name="stop" class="button" value="Stop Rotation">
             <input type="submit" name="sniff" class="button" value="Scan For Available Networks">
         </form>
     </div>
