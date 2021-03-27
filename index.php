@@ -36,7 +36,7 @@ $osInfo = getOSInformation();
 </head>
 
 <body>
-    <script src="jquery-3.6.0.js"></script>
+    <script src="./js/jquery-3.6.0.js"></script>
     <script src="checker.js"></script>
     <div class="container">
         <section>
